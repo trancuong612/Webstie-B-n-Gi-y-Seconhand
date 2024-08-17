@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>2Hand</title>
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Hexashop Ecommerce HTML CSS Template</title>
+
+
+<!-- Additional CSS Files -->
+<link rel="stylesheet" type="text/css" href="{% static "app/css/bootstrap.min.css" %}">
+
+<link rel="stylesheet" type="text/css" href="{% static "app/css/font-awesome.css" %}">
+
+
+
+<link rel="stylesheet" href="{% static "app/css/owl-carousel.css" %}">
+
+<link rel="stylesheet" href="{% static "app/css/lightbox.css" %}">
+<link rel="stylesheet" href="{% static "app/css/templates.css" %}">
+<!--
+
+TemplateMo 571 Hexashop
+
+https://templatemo.com/tm-571-hexashop
+
+-->
+<style>
+    html, body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        background-color: #fff;
+        font-size: 16px;
+        -ms-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    header{
+        border: 5px solid #fff;
+        border-radius: 10px;
+      }
+      nav, section, article, aside, footer, hgroup {
+        display: block;
+      }
+      .page-heading {
+        margin-top: 160px;
+        margin-bottom: 30px;
+        background-image: url("app/images/banner1.jpg");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+</style>
+<script type = "text/javascript">
+    var user = '{{request.user}}'
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+</script>
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url "Home" %}" class="logo">
+                            <img src="{% static "app/images/loggo.png" %} " width="100" height="70">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="#top" class="active" style = "color:#00FFFF;">Trang Chủ</a></li>
+                            <li class="scroll-to-section"><a href="#men">Nike</a></li>
+                            <li class="scroll-to-section"><a href="#women">Adidas</a></li>
+                            <li class="scroll-to-section"><a href="#kids">Converse</a></li>
+                            <li class="submenu">
+                                <a href="javascript:;">Xem Thêm</a>
+                                <ul>
+                                    <li><a href="{% url "about" %}">About Us</a></li>
+                                    <li><a href="{% url "products" %}">Sản Phẩm</a></li>
+                                    <li><a href="{% url "contact" %}contact">Contact Us</a></li>
+                                </ul>
+                            </li>
+                            <li class="scroll-to-section"><a href="#explore">Nổi Bật</a></li>
+                            <a href="{% url "cart" %}" style="position: relative; top: 7px; left: 0px; display: inline-block; text-decoration: none;">
+                                <img src="{% static "app/images/shopping-cart.png" %}" width="25" height="25">
+                                <div style="position: relative; top: -43px; left: 20px; background-color: red; color: white; padding: 0px 5px; border-radius: 50%; font-weight: bold;">
+                                    {{cartItems}}
+                                </div>
+                            </a>
+                            
+                            <li class="submenu">
+                                <a href="javascript:;"><img src = "{% static "app/images/profile.png" %}" width="25" height="25"> </a>
+                                <ul>
+                                    {% if not is_authenticated %}
+                                    <li><a href="/login">Đăng Nhập</a></li>
+                                    <li><a href="/register">Đăng Kí</a></li>
+                                    {% endif %}
+                                    {% if is_authenticated %}
+                                    <li><a href="{% url "logout" %}">Đăng Xuất</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            {% if is_authenticated %}
+                            <p style="font-weight: bold; color: #333;position: relative; top: 8px; left: 9px;">{{ request.user}}</p>
+                            {% endif %}
+                                  
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    {% comment %} <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2>Single Product Page</h2>
+                        <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <!-- ***** Main Banner Area End ***** -->
+
+
+    <!-- ***** Product Area Starts ***** -->
+    <section class="section" id="product" style="margin-top: 300px;">
+        <div class="container">
+            <div class="row">
+                {% for sanpham in products %}
+                <div class="col-lg-8">
+                        <div class="left-images">
+                            <img src="{{sanpham.ImageURL}}" width = '100px' height = '700px' alt="">
+                        </div>
+                    </div>
+            <div class="col-lg-4">
+                <div class="right-content">
+                    <h4>{{sanpham.name}}</h4>
+                    <ul class="stars">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                    </ul>
+                    <span>{{sanpham.Type}}</span>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i><p>{{sanpham.Describe}}</p>
+                        
+                    </div>
+                    <div class="container">
+                        <!-- Hàng đầu tiên -->
+                        <div class="row">
+                            <h4>{{sanpham.price}} VND</h4>
+                        </div>
+                    
+                        <!-- Hàng thứ hai -->
+                        <div class="row">
+                            <button href="" data-product = {{sanpham.id}} data-action = "add" class ="update-cart" type="button" style="background-color: white; color: black; border: 2px solid #555; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; transition-duration: 0.4s; cursor: pointer;"
+                            onmouseover="this.style.backgroundColor='#555'; this.style.color='white';"
+                            onmouseout="this.style.backgroundColor='white'; this.style.color='grey';" ><a style="color: black;"><strong>Thêm Vào Giỏ Hàng</strong></a></button> 
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    <!-- ***** Product Area Ends ***** -->
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="first-item">
+                        <div class="logo">
+                            <img src="{% static "app/images/loggo.png" %}" width="150" height="70" alt="hexashop ecommerce templatemo">
+                        </div>
+                        <ul>
+                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                            <li><a href="#">hexashop@company.com</a></li>
+                            <li><a href="#">010-020-0340</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Shopping &amp; Categories</h4>
+                    <ul>
+                        <li><a href="#">Men’s Shopping</a></li>
+                        <li><a href="#">Women’s Shopping</a></li>
+                        <li><a href="#">Kid's Shopping</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4>Help &amp; Information</h4>
+                    <ul>
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Tracking ID</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-12">
+                    <div class="under-footer">
+                        <p>Copyright © Tisisocute
+                        
+                       
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+     <!-- jQuery -->
+     <script src="{% static "app/js/jquery-2.1.0.min.js" %}"></script>
+
+     <!-- Bootstrap -->
+     <script src="{% static "app/js/popper.js" %}"></script>
+     <script src="{% static "app/js/bootstrap.min.js" %}assets/js/bootstrap.min.js"></script>
+ 
+     <!-- Plugins -->
+     <script src="{% static "app/js/owl-carousel.js" %}"></script>
+     <script src="{% static "app/js/accordions.js" %}"></script>
+     <script src="{% static "app/js/datepicker.js" %}"></script>
+     <script src="{% static "app/js/scrollreveal.min.js" %}"></script>
+     <script src="{% static "app/js/waypoints.min.js" %}"></script>
+     <script src="{% static "app/js/jquery.counterup.min.js" %}"></script>
+     <script src="{% static "app/js/imgfix.min.js" %}"></script> 
+     <script src="{% static "app/js/slick.js" %}"></script> 
+     <script src="{% static "app/js/lightbox.js" %}"></script> 
+     <script src="{% static "app/js/isotope.js" %}"></script> 
+     
+     <!-- Global Init -->
+     <script src="{% static "app/js/custom.js" %}"></script>
+     <script src="{% static "app/js/cart.js" %}"></script>
+    <script>
+
+        $(function() {
+            var selectedClass = "";
+            $("p").click(function(){
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(50, 0.1);
+                $("#portfolio div").not("."+selectedClass).fadeOut();
+            setTimeout(function() {
+              $("."+selectedClass).fadeIn();
+              $("#portfolio").fadeTo(50, 1);
+            }, 500);
+                
+            });
+        });
+
+    </script>
+
+  </body>
+</html>
